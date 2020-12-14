@@ -27,9 +27,20 @@ struct Bar{
         cout << "Bar func" << endl;
     }
 
-    operator fr_t(void)    {
+    operator fr_t() {
         cout << "Bar fr_t" << endl;
         return func;
+    }
+};
+
+struct Bar2{
+    static void func(int)    {
+        cout << "Bar2 func" << endl;
+    }
+
+    void operator()(int a) {
+        cout << "Bar2 fr_t" << endl;
+        func(a);
     }
 };
 
@@ -57,6 +68,8 @@ int main(){
     bar(1); // 这里用一个(),而不是两个，我的理解：bar这里看成一个函数指针bar.operator(),然后加上(int)，就是调用：bar.operator()(int)
     bar.operator Bar::fr_t()(1);
 
+    Bar2 bar2;
+    bar2(1);
     
     void (A::*mem_func_ptr)(void) = &A::mem_func; // D、是一个类成员(函数)指针
     int A::*mem_obj_ptr = &A::a_;                 // 或者是 类成员指针
