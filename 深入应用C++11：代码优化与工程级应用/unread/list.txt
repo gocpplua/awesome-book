@@ -1,2 +1,4 @@
+!!! 作者博客：https://www.cnblogs.com/qicosmos/p/4772486.html
+!!! 书本实例：https://github.com/qicosmos/cosmos/tree/master/cpp11book
 1、1.4.3 让基于范围的for循环支持自定义
 2、2.1.1中的 代码清单2-1
