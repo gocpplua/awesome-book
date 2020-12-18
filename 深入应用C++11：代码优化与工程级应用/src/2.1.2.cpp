@@ -68,6 +68,13 @@ public:
         copy_data(str.m_data);
         cout << "copy construct" << endl;
     }
+    MyString(MyString&& str){ // 我们一般在提供右值引用的移动构造的情况下，还会提供常量左值引用的拷贝构造，以保证移动不成还可以使用拷贝构造
+        m_len = str.m_len;
+        m_data = str.m_data;
+        str.m_len = 0;
+        str.m_data = nullptr;
+        cout << "move construct" << endl;
+    }
     MyString& operator=(const MyString& str){
         if (this != &str)
         {
@@ -77,18 +84,29 @@ public:
         cout << "copy assign" << endl;
         return *this;
     }
+    MyString& operator=(MyString&& str){ 
+        if (this != &str)
+        {
+            m_len = str.m_len;
+            m_data = str.m_data;
+            str.m_len = 0;
+            str.m_data = nullptr;
+        }
+        cout << "move assign" << endl;
+        return *this;
+    }
     ~MyString(){
         if (m_data)
         {
             delete []m_data;
         }
         m_data = 0;
+        cout << "destruct" << endl;
     }
 };
 
 void testMyString()
 {
-    cout << "=========testMyString=========" << endl;
     MyString a;
     a = MyString("hello");
     std::vector<MyString> vec;
@@ -98,5 +116,7 @@ void testMyString()
 int main()
 {
     A a = getA(false);
+    cout << "=========testMyString=========" << endl;
     testMyString();
+    cout << "=========testMyString=========" << endl;
 }
