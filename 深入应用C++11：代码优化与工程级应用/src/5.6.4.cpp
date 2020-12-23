@@ -26,8 +26,8 @@ int main(){
 
     // std::future是不能复制的，不能放在容器中，需要使用shared_future
     vector<std::shared_future<int>> v;
-    std::shared_future<int> f = std::async(std::launch::async, [](int a, int b)->int{ return a + b;}, 2, 3);
-    auto f1 = std::async(std::launch::async, [](int a, int b)->int{return a + b; }, 2, 3); // std::async返回std::future<T>
+    std::shared_future<int> f = std::async(std::launch::async, [](int a, int b)->int{ cout << "create thread1" << endl;return a + b;}, 2, 3);
+    auto f1 = std::async(std::launch::async, [](int a, int b)->int{cout << "create thread2" << endl; return a + b; }, 3, 4); // std::async返回std::future<T>
     v.push_back(f);
     // v.push_back(f1); // error:std::async返回std::future<T>
     v.push_back(f1.share()); // ok:将share()函数std::future<int>转换为std::shared_future<int>
